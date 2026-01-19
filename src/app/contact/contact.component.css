@@ -1,0 +1,22 @@
+.total-count {
+  padding-left: 5px;
+  color: #737373;
+}
+
+.table-wrapper {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.ellipsis {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,27 @@
+<div>
+  <div class="col-lg-12 align-items-center mt-10 pdl-10">
+    <div class="d-flex align-items-center" (click)="onBack()" [style.cursor]="'pointer'">
+      <span class="material-symbols-outlined" [style.color]="'#0d6efd'" [style.font-size]="'30px'">
+      arrow_circle_left
+      </span>
+      &nbsp;<b>Back to Contacts</b>
+    </div>
+  </div>
+  <hr>
+  <div class="contact-details-wrapper">
+    <div class="col-lg-12 d-flex align-items-center contact-details-header">
+      <span class="material-symbols-outlined mr-5" [style.font-size]="'30px'"
+        >contact_page</span
+      >
+      <h2>Contact Details</h2>
+    </div>
+    <hr>
+    <div class="col-lg-12 d-flex flex-column contact-details">
+      <div><b>ID:</b> {{ contactDetails?.id }}</div>
+      <div><b>First Name:</b> {{ contactDetails?.firstName }}</div>
+      <div><b>Last Name:</b> {{ contactDetails?.lastName }}</div>
+      <div><b>Email:</b> {{ contactDetails?.email }}</div>
+    </div>
+  </div>
+
+</div>
