@@ -78,6 +78,7 @@
           @for(page of pages; track page) {
           <li
             class="page-item"
+            [style.cursor]="'pointer'"
             [class.active]="page === currentPageNo"
             (click)="goTo(page)"
           >
@@ -174,7 +175,8 @@
               </button>
               <button
                 type="submit"
-                class="btn btn-success"
+                class="btn"
+                [class]="contactForm.invalid ? 'btn-light': 'btn-success'"
                 [disabled]="contactForm.invalid"
                 [style.cursor]="contactForm.invalid ? 'not-allowed' : 'pointer'"
               >
