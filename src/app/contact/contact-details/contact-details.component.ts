@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Contact } from '../../shared/contact.model';
 import { contacts } from '../../shared/common.mock';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -15,16 +16,20 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
   contactDetails: Contact | undefined;
   subscription: Subscription = new Subscription();
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private contactService: ContactService
+  ) {}
 
   ngOnInit(): void {
     console.log('--------------contactDetails:');
     this.subscription = this.route.params.subscribe((params) => {
       if (params['id']) {
         console.log("params['id']: ", params['id']);
-        this.contactDetails = contacts.find(
-          (contact) => contact.id === parseInt(params['id'])
-        );
+        this.contactService.getContactById(params['id']).then((data) => {
+          this.contactDetails = JSON.parse(JSON.stringify(data));
+        });
       }
     });
   }

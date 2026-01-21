@@ -1,0 +1,10 @@
+{
+  "resourceName": "Contacts",
+  "tableName": "Contacts",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

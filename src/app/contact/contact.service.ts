@@ -1,24 +1,59 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '../shared/contact.model';
-import { contacts } from '../shared/common.mock';
+import { post, get } from 'aws-amplify/api';
+import { LoaderService } from '../shared/loader/loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  private contacts: Contact[] = contacts;
+  private apiName = 'subscriber';
+  private path = '/subscriber';
 
-  constructor() {}
+  constructor(private loaderService: LoaderService) {}
 
-  getAllContacts(): Contact[] {
-    return contacts.slice();
+  async getAllContacts() {
+    this.loaderService.show();
+    const operation = get({
+      apiName: this.apiName,
+      path: this.path,
+    });
+
+    const response = await operation.response;
+    this.loaderService.hide();
+    return await response.body.json();
   }
 
-  pushNewContact(contact: Contact): void {
-    const contactObj: Contact = {
-      id: this.contacts.length + 1,
-      ...contact,
-    };
-    this.contacts.unshift(contactObj);
+  async createContact(payload: {
+    email: string;
+    firstName: string;
+    lastName: string;
+  }) {
+    this.loaderService.show();
+    const operation = post({
+      apiName: this.apiName,
+      path: this.path,
+      options: {
+        body: payload,
+      },
+    });
+
+    const response = await operation.response;
+    this.loaderService.hide();
+    return await response.body.json();
+  }
+
+  async getContactById(id: string) {
+    this.loaderService.show();
+    const operation = get({
+      apiName: this.apiName,
+      path: this.path,
+      options: {
+        queryParams: { id },
+      },
+    });
+
+    const response = await operation.response;
+    this.loaderService.hide();
+    return await response.body.json();
   }
 }

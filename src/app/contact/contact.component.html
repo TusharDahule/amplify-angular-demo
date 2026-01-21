@@ -25,6 +25,7 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Created Date & Time</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td class="ellipsis">{{ item.firstName }}</td>
             <td class="ellipsis">{{ item.lastName }}</td>
             <td class="ellipsis">{{ item.email }}</td>
+            <td class="ellipsis">{{ item.createdAt | date: 'dd MMM yyyy, hh:mm a' }}</td>
             <td>
               <span
                 class="material-symbols-outlined"

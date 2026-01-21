@@ -1,0 +1,58 @@
+{
+  "api": {
+    "subscriber": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "subscriberHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "subscriberHandler": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_subscriberHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "subscriberHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_subscriberHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "subscriberHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_subscriberHandler_storageContactsName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "subscriberHandler"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "Contacts": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

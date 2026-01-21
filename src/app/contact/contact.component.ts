@@ -10,11 +10,12 @@ import {
 } from '@angular/forms';
 import { ToastService } from '../shared/toast/toast.service';
 import { ContactService } from './contact.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DatePipe],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })
@@ -47,11 +48,17 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setContactData(): void {
-    this.contacts = this.contactService.getAllContacts();
-    this.totalContacts = this.contacts.length;
-    this.totalPages = this.getTotalPages();
-    console.log('this.totalPages: ', this.totalPages);
-    this.paginate(this.contacts, this.currentPageNo, this.pageSize);
+    // this.contacts = this.contactService.getAllMockContacts();
+    this.contactService.getAllContacts().then((data) => {
+      console.log('---contact data:', data);
+      const parsedData = JSON.parse(JSON.stringify(data));
+      console.log('parsedData: ', parsedData);
+      this.contacts = parsedData;
+      this.totalContacts = this.contacts.length;
+      this.totalPages = this.getTotalPages();
+      console.log('this.totalPages: ', this.totalPages);
+      this.paginate(this.contacts, this.currentPageNo, this.pageSize);
+    });
   }
 
   ngAfterViewInit() {
@@ -165,10 +172,16 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     if (this.contactForm.valid) {
       console.log('Contact:', this.contactForm.value);
-      this.contactService.pushNewContact(this.contactForm.value);
+      this.contactService
+        .createContact(this.contactForm.value)
+        .then((response) => {
+          this.toastService.show('Contact created successfully', 'success');
+          this.setContactData();
+        })
+        .catch(() => {
+          this.toastService.show('Something went wrong', 'error');
+        });
       this.closeContactModal();
-      this.toastService.show('Contact created successfully', 'success');
-      this.setContactData();
     }
   }
 

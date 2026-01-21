@@ -1,0 +1,11 @@
+{
+  "lambdaLayers": [],
+  "storageContactsName": "Contacts",
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "storageContactsName",
+      "environmentVariableName": "STORAGE_CONTACTS_NAME"
+    }
+  ],
+  "permissions": {}
+}
